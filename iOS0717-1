@@ -1,0 +1,172 @@
+import UIKit
+
+/*
+//비어있는 배열 생성
+var ar = [Int]()
+ar.append(100)
+ar.insert(120, at: 0)
+ar.insert(89, at: 1)
+
+//전체 출력
+print(ar)
+
+//모든 데이터를 순서대로 접근
+for imsi in ar{
+    print(imsi)
+}
+
+ar = [100, 300, 279, 165, 208]
+//map 대입할 함수 : 하나의 매개변수를 받아서 하나의 데이터를 리턴하는 구조
+func inc(p : Int) -> Int{
+     return p+1
+}
+
+var result = ar.map(inc)
+print(result)
+
+//var 자리에 let으로 만들면 수정 불가
+
+
+//홀수만 골라내는 필터링
+//filter의 매개변수는 하나의 매개변수를 받아서
+//Bool을 리턴하는 함수
+result = ar.filter({(v:Int) -> Bool in
+    return v % 2 == 1
+})
+print(result)
+
+var actors = Set<String>()
+actors.insert("한지민")
+actors.insert("정유미")
+actors.insert("손예진")
+
+//모든 데이터 접근
+for actor in actors{
+    print(actor)
+}
+
+//print(actors.first) //첫번째 데이터 접근 --> 이렇게 하면 Optional(정유미) 이런식으로 나오는 거
+
+//Optional을 해제
+//가장쉬운방법 - 강제로 해제하는 방법
+//Set이나 Dict 등에서 데이터를 가져오는 경우는 대부분 Optional입니다.
+print(actors.first!) //첫번째 데이터 접근 -->이렇게 하면 그냥 정유미 이런식으로 나옴
+*/
+
+/*
+//튜플과 배열을 이용한 데이터 테이블 구조를 생성
+
+//DTO 클래스의 형식과 유사한 Tuple 자료형 생성
+//번호, 이름, 전화번호를 저장하는 Tuple 자료형 생성
+//PhoneBook 이라는 별명으로 사용할 수 있도록 생성
+typealias PhoneBook = (num:Int, name:String,
+    mobile:String)
+
+//데이터 모임 만들기
+var phoneBookList = [PhoneBook]()
+
+//데이터 추가
+phoneBookList.append((num:1, name:"한예슬", mobile:"010"))
+phoneBookList.append((num:2, name:"이성경", mobile:"011"))
+//[(num: 1, name: "한예슬", mobile: "010"), (num: 2, name: "이성경", mobile: "011")]
+
+//전체 데이터 확인
+//print(phoneBookList) --> 이렇게 잘안해
+
+for data in phoneBookList{
+   print(data.num, data.name)
+}
+//1 한예슬
+//2 이성경
+*/
+
+/*
+//디셔너리 1개 생성
+var dict = [String : String]()
+//데이터 추가
+dict["name"] = "손흥민"
+dict["hometown"] = "강원도 춘천"
+//데이터 갱신
+dict["hometown"] = "강원도 춘천"
+//전체 데이터 확인
+print(dict)
+//["name": "손흥민", "hometown": "강원도 춘천"]
+ 
+//Dictinary는 내붑 구성요소를 전부 할지 못해도 순회 가능
+//--중요(기억하기)
+//iOS 프레임워크에서 메소드의 수행결과를 Dictionary로 제공하는 경우가 많습니다.
+//Dictinary로 오면 도움말을 보지 않고도 확인이 가능
+for key in dict.keys{
+    print(key, ":", dict[key]!)
+}
+ //name : 손흥민
+ //hometown : 강원도 춘천
+*/
+/*
+//프로축구 각 팀 선수명단을 저장
+//팀별로 배열을 생성
+var SEOUL = ["박주영", "오스마르"]
+var DEAGU = ["조현우", "세징야"]
+
+//각 팀의 배열을 가지고 배열을 생성
+var KLEAGUE = [SEOUL, DEAGU]
+
+//위의 데이터를 팀이름으로 출력하고 선수명단을 출력
+for x in 0..<KLEAGUE.count{
+    if x == 0{
+        print("서울")
+    }
+    else{
+        print("대구")
+    }
+    let imsi = KLEAGUE[x]
+    for temp in imsi{
+        print("  \(temp)")
+    }
+}
+ /*
+ 서울
+   박주영
+   오스마르
+ 대구
+   조현우
+   세징야
+ //그러나 탐의 선수는 추가가 되지만 팀은 추가가 안됨
+ */
+*/
+
+//프로축구 각 팀 선수명단을 저장
+//전북을 추가
+var SEOUL = ["박주영", "오스마르"]
+var DEAGU = ["조현우", "세징야"]
+var JUNBOK = ["이동국", "로페즈"]
+
+//Dictionary를 생성해서 배열에 저장
+var dict1 = [String:Any]()
+dict1["team"] = "서울"
+dict1["data"] = SEOUL
+
+var dict2 = [String:Any]()
+dict2["team"] = "대구"
+dict2["data"] = DEAGU
+
+var dict3 = [String:Any]()
+dict3["team"] = "전북"
+dict3["data"] = JUNBOK
+
+
+//각 팀의 배열을 가지고 배열을 생성
+var KLEAGUE = [dict1, dict2, dict3]
+
+for dict in KLEAGUE{
+    //Any는 원래의 자료형으로 형변환에서 사용
+   let team = dict["team"] as! String
+    print(team)
+    //Any를 Swift 자료형으로 형 변환 했는데 에러가 나면
+    //앞에 NS를 붙여서 Objectiv-C 지료형으로 변환한 후
+    //Swift 자료형으로 변환하면 됩니다.
+    let data = (dict["data"] as! NSArray) as Array
+    for temp in data{
+        print("  \(temp)")
+    }
+}
