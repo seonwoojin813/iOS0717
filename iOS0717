@@ -1,0 +1,119 @@
+import UIKit
+
+/*
+//상위 클래스 - 기반 클래스
+class Base{
+    var bunho:Int = 0
+    
+    func superMethod(){
+        print("상위 클래스 메소드")
+    }
+}
+
+//하위 클래스 - 파생 클래스
+class Derived : Base{
+    func subMethod() {
+        //self를 사용하면 자신의 클래스 안에서 찾고 없으면 상위 클래스로 갑니다.
+        //super를 사용하면 상위 클래스애서만 찾습니다.
+        //자신의 메소드 안에서 찾고 없으면 클래스 그 다음에 상위 클래스에서 찾습니다.
+        super.superMethod()
+        print("상위 클래스의 메소드")
+    }
+}
+
+var derived : Derived = Derived()
+derived.subMethod()
+*/
+/*
+//상위 클래스 - 기반 클래스
+class Base{
+    var bunho:Int = 0
+    
+    func method(){
+        print("상위 클래스 메소드")
+    }
+}
+
+//하위 클래스 - 파생 클래스
+class Derived : Base{
+    override func method() {
+        //self를 사용하면 자신의 클래스 안에서 찾고 없으면 상위 클래스로 갑니다.
+        //super를 사용하면 상위 클래스애서만 찾습니다.
+        //자신의 메소드 안에서 찾고 없으면 클래스 그 다음에 상위 클래스에서 찾습니다.
+        super.method()
+        print("하위 클래스의 메소드")
+    }
+}
+
+var derived : Derived = Derived()
+derived.method()
+
+//상위 클래스 타입의 참조형 변수에 하위 클래스 타입의 인스턴스 참조는 대입이 가능
+var obj1 : Base = Derived() //가능
+//var obj2 : Derived = Base() //에러 Cannot convert value of type 'Base' to specified type 'Derived'
+
+//상위 클래스 타입의 데이터를 강제 형 변환해서 대입은 가능
+//obj1의 자료형은 Base 이지만
+//실제 저장된 데이터는 Derived라서 가능
+var obj2 : Derived = obj1 as! Derived //가능
+
+var obj3 : Base = Base()
+//obj3의 자료형은 원래 Base 였기 때문에 강제 형 변환 안됨
+//obj2 = obj3 as! Derived //에러 Execution was interrupted, reason: signal SIGABRT.
+
+//오버라이딩 된 메소드는 변수의 자료형을 가지고 접근하는 것이 아니라 대입된 인스턴스의 자료형을 가지고
+//메소드를 찾아서 사용합니다
+*/
+
+enum Multimedia : Int{
+   case TEXT =  1
+   case VIDEO
+   case AUDIO
+}
+
+var opt : Multimedia = .VIDEO
+print(opt) //이름이 그대로 출력
+print(opt.rawValue) //실제 저장된 값이 출력
+
+
+/*
+ //선택적 구현 메소드가 잇을 때는 protocol 앞에
+protocol MultimediaPlayer{
+  func play() //필수 구현 메소드
+  @objc optional func next()
+    //에러 @objc can only be used with members of classes, @objc protocols, and concrete extensions of classes
+}
+*/
+//선택적 구현 메소드가 잇을 때는 protocol 앞에
+//이렇게 objc를 추가
+@objc protocol MultimediaPlayer{
+    func play() //필수 구현 메소드
+    @objc optional func next()
+}
+
+/*
+//프로토콜 구현 - Protocol을 conform 하면
+//필수 메소드(required)를 반드시 구현
+class Player : MultimediaPlayer{
+    func play(){
+       print("재생")
+   }
+}
+
+var player : Player = Player()
+player.play()
+ */
+
+//extention을 사용하면 가독성이 좋아진다
+//예를 들어 남에 코드 받아올 때 활용하기
+//이 기능은 C#에도 있음
+class Player{
+}
+extension Player : MultimediaPlayer{
+    func play(){
+        print("재생")
+    }
+}
+
+var player : Player = Player()
+player.play()
